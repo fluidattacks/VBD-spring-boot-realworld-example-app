@@ -20,6 +20,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 @Configuration
 @EnableWebSecurity
+@org.springframework.context.annotation.PropertySource("classpath:runtime.properties")
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
   @Bean
@@ -57,6 +58,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         .antMatchers(HttpMethod.POST, "/users", "/users/login")
         .permitAll()
         .antMatchers(HttpMethod.GET, "/articles/**", "/profiles/**", "/tags")
+        .permitAll()
+        .antMatchers("/db/h2/**")
         .permitAll()
         .anyRequest()
         .authenticated();
